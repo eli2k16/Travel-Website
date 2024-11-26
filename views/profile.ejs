@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Profile - Travel Website</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background-color: #addae6;">
+  <!-- Header section -->
+  <header>
+    <h1>Welcome, <%= user.name %></h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/nairobi">Nairobi</a>
+      <a href="/tokyo">Tokyo</a>
+      <a href="/interlaken">Interlaken</a>
+      <a href="/giza">Giza</a>
+      <a href="/porto">Porto</a>
+      <a href="/dubai">Dubai</a>
+      <a href="/masai_mara">Masai Mara</a>
+      <a href="/mauritius">Mauritius</a>
+      <a href="/bookings">Your Bookings</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Profile Section -->
+  <main>
+    <section class="profile-section">
+      <h2>Your Profile</h2>
+
+      <!-- Display user info -->
+      <form action="/update-profile" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name:</label>
+          <input type="text" id="name" name="name" value="<%= user.name %>" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <button type="submit" class="btn">Update Profile</button>
+      </form>
+
+      <hr>
+
+      <!-- Change Password Section -->
+      <h3>Change Password</h3>
+      <form action="/change-password" method="POST">
+        <div class="form-group">
+          <label for="current_password">Current Password:</label>
+          <input type="password" id="current_password" name="current_password" required>
+        </div>
+        <div class="form-group">
+          <label for="new_password">New Password:</label>
+          <input type="password" id="new_password" name="new_password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Confirm New Password:</label>
+          <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+        <button type="submit" class="btn">Change Password</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; 2024 Travel Website | All rights reserved</p>
+  </footer>
+</body>
+</html>

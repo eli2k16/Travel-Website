@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Website - Home</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* Example inline styling for a quick start */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #91b9ed;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    nav a {
+      margin: 0 15px;
+      color: #2d3e50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #007bff;
+    }
+    .content {
+      padding: 20px;
+    }
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .destination-card {
+      background-color: #d8e0eb;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .destination-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+    }
+    .destination-card h3 {
+      padding: 10px;
+      margin: 0;
+      background-color: #91b9ed;
+    }
+    .destination-card p {
+      padding: 10px;
+      background-color: #91b9ed;
+    }
+  </style>
+</head>
+<body style="background-color: #addae6;">
+  <!-- Header section -->
+  <header>
+    <h1>Welcome to Your Travel Adventure</h1>
+    <% if (user) { %>
+      <p>Hello, <%= user.name %>! Explore new destinations and plan your next trip.</p>
+      <a href="/profile">Go to Profile</a> | <a href="/logout">Logout</a>
+    <% } else { %>
+      <p><a href="/login">Login</a> or <a href="/signup">Sign Up</a></p>
+    <% } %>
+  </header>
+
+  <!-- Navigation bar -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="/crud">Manage Destinations</a>
+    <a href="/booking">Make a Booking</a>
+    <a href="/reviewsdata">View Reviews</a>
+  </nav>
+
+  <!-- Main content area -->
+  <div class="content">
+    <h2>Featured Destinations
+           Click on a destination to see more and book!</h2>
+    <div class="destinations">
+      <!-- Loop through featured destinations and display them -->
+      <% if (destinations && destinations.length > 0) { %>
+        <% destinations.forEach(function(destination) { %>
+          <div class="destination-card">
+            <img src="/images/<%= destination.image_url %>" alt="<%= destination.name %>">
+            <h3>
+              <a href="/<%= destination.name.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_') %>"><%= destination.name %></a>
+            </h3>
+            <p><%= destination.description %></p>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No destinations available at the moment.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

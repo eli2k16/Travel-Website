@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Travel Website</title>
+  <link rel="stylesheet" href="/css/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body style="background-color: #addae6;">
+  <header>
+    <h1>Sign Up for an Account</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/login">Login</a>
+      <a href="/bookings">Bookings</a>
+    </nav>
+  </header>
+
+  <!-- Sign Up Form -->
+  <main>
+    <section class="signup-section">
+      <h2>Create a New Account</h2>
+
+      <!-- Check if there are any errors or success messages passed to the template -->
+      <% if (typeof error !== 'undefined') { %>
+        <div class="error-message" style="color: red;">
+          <%= error %>
+        </div>
+      <% } %>
+      <% if (typeof success !== 'undefined') { %>
+        <div class="success-message" style="color: green;">
+          <%= success %>
+        </div>
+      <% } %>
+
+      <form action="/signup" method="POST">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+
+         <label for="email">Email:</label>
+         <input type="email" id="email" name="email" required>
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+
+         <button type="submit">Sign Up</button>
+       </form>
+
+      <p class="login-link">
+        Already have an account? <a href="/login">Log in here</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Travel Website | All rights reserved</p>
+  </footer>
+</body>
+</html>

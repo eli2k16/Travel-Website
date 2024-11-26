@@ -1,0 +1,296 @@
+//* General Layout */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ff6961 
+
+header {
+  background-color: #add8e6;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Main content */
+main {
+  margin: 30px auto;
+  max-width: 1100px;
+  padding: 20px;
+}
+
+h2, h3 {
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+/* CRUD Section */
+.crud-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+input[type="text"], textarea, input[type="file"], select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button.btn, button.btn-delete {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 4px;
+}
+
+button.btn {
+  background-color: #28a745;
+  color: white;
+}
+
+button.btn:hover {
+  background-color: #218838;
+}
+
+button.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.btn-delete:hover {
+  background-color: #c82333;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+td img {
+  width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+
+td a, td form {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Forms */
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"],
+form textarea,
+form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+/* Header and Footer */
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Page Specific Styles for Individual Destination Pages */
+.destination-image {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.destination-description {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-top: 15px;
+}
+
+/* Login / Signup Forms */
+.login-form, .signup-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form input[type="text"], .login-form input[type="password"],
+.signup-form input[type="text"], .signup-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.login-form button, .signup-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button:hover, .signup-form button:hover {
+  background-color: #218838;
+}
+
+/* Profile Page */
+.profile-section {
+  padding: 20px;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h3 {
+  margin-bottom: 20px;
+}
+
+.profile-section p {
+  margin: 5px 0;
+}
+
+.profile-section a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.profile-section a:hover {
+  text-decoration: underline;
+}
+
+/* Booking Page */
+.booking-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-form input, .booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.booking-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.booking-form button:hover {
+  background-color: #005bb5;
+}

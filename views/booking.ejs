@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bookings - Travel Website</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background-color: #addae6;">
+  <!-- Header section -->
+  <header>
+    <h1>Welcome, <%= user.name %></h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/nairobi">Nairobi</a>
+      <a href="/tokyo">Tokyo</a>
+      <a href="/interlaken">Interlaken</a>
+      <a href="/giza">Giza</a>
+      <a href="/porto">Porto</a>
+      <a href="/dubai">Dubai</a>
+      <a href="/masai_mara">Masai Mara</a>
+      <a href="/mauritius">Mauritius</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Bookings Section -->
+  <main>
+    <section class="bookings-section">
+      <h2>Your Bookings</h2>
+
+      <% if (bookings.length === 0) { %>
+        <p>You have no bookings yet. Start planning your next adventure!</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Destination</th>
+              <th>Booking Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bookings.forEach(booking => { %>
+              <tr>
+                <td><%= booking.destination_name %></td>
+                <td><%= booking.booking_date.toLocaleString() %></td>
+                <td>
+                  <form action="/cancel-booking/<%= booking.id %>" method="POST">
+                    <button type="submit" class="btn">Cancel Booking</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+
+      <h3>Book a New Destination</h3>
+      <form action="/book" method="POST">
+        <label for="destination">Choose a Destination:</label>
+        <select name="destination_id" id="destination" required>
+          <option value="1">Nairobi, Kenya</option>
+          <option value="2">Tokyo, Japan</option>
+          <option value="3">Interlaken, Switzerland</option>
+          <option value="4">Giza, Egypt</option>
+          <option value="5">Porto, Portugal</option>
+          <option value="6">Dubai, UAE</option>
+          <option value="7">Masai Mara, Kenya</option>
+          <option value="8">Mauritius</option>
+        </select>
+        <button type="submit" class="btn">Book Now</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <p>&copy; 2024 Travel Website | All rights reserved</p>
+  </footer>
+</body>
+</html>
