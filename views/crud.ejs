@@ -20,7 +20,7 @@
       <a href="/dubai">Dubai</a>
       <a href="/masai_mara">Masai Mara</a>
       <a href="/mauritius">Mauritius</a>
-      <a href="/bookings">Your Bookings</a>
+      <a href="/booking">Your Bookings</a>
       <a href="/profile">Profile</a>
       <a href="/logout">Logout</a>
     </nav>
@@ -67,7 +67,7 @@
             <tr>
               <td><%= destination.name %></td>
               <td><%= destination.description %></td>
-              <td><img src="<%= destination.image_url %>" alt="<%= destination.name %>" style="width:100px; height:auto;"></td>
+              <td><img src="/images/<%= destination.image_url %>" alt="<%= destination.name %>" style="width:100px; height:auto;"></td>
               <td>
                 <!-- Edit Destination -->
                 <a href="/destinations/edit/<%= destination.id %>">Edit</a>

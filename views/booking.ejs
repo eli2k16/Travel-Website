@@ -9,19 +9,36 @@
 <body style="background-color: #addae6;">
   <!-- Header section -->
   <header>
-    <h1>Welcome, <%= user.name %></h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/nairobi">Nairobi</a>
-      <a href="/tokyo">Tokyo</a>
-      <a href="/interlaken">Interlaken</a>
-      <a href="/giza">Giza</a>
-      <a href="/porto">Porto</a>
-      <a href="/dubai">Dubai</a>
-      <a href="/masai_mara">Masai Mara</a>
-      <a href="/mauritius">Mauritius</a>
-      <a href="/logout">Logout</a>
-    </nav>
+    <% if (user) { %>
+      <h1>Welcome, <%= user.name %>!</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/nairobi">Nairobi</a>
+        <a href="/tokyo">Tokyo</a>
+        <a href="/interlaken">Interlaken</a>
+        <a href="/giza">Giza</a>
+        <a href="/porto">Porto</a>
+        <a href="/dubai">Dubai</a>
+        <a href="/masai_mara">Masai Mara</a>
+        <a href="/mauritius">Mauritius</a>
+        <a href="/logout">Logout</a>
+      </nav>
+    <% } else { %>
+      <h1>Welcome, Guest!</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/nairobi">Nairobi</a>
+        <a href="/tokyo">Tokyo</a>
+        <a href="/interlaken">Interlaken</a>
+        <a href="/giza">Giza</a>
+        <a href="/porto">Porto</a>
+        <a href="/dubai">Dubai</a>
+        <a href="/masai_mara">Masai Mara</a>
+        <a href="/mauritius">Mauritius</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Sign Up</a>
+      </nav>
+    <% } %>
   </header>
 
   <!-- Bookings Section -->
@@ -57,18 +74,15 @@
       <% } %>
 
       <h3>Book a New Destination</h3>
-      <form action="/book" method="POST">
+      <form action="/booking" method="POST">
         <label for="destination">Choose a Destination:</label>
         <select name="destination_id" id="destination" required>
-          <option value="1">Nairobi, Kenya</option>
-          <option value="2">Tokyo, Japan</option>
-          <option value="3">Interlaken, Switzerland</option>
-          <option value="4">Giza, Egypt</option>
-          <option value="5">Porto, Portugal</option>
-          <option value="6">Dubai, UAE</option>
-          <option value="7">Masai Mara, Kenya</option>
-          <option value="8">Mauritius</option>
+          <% destinations.forEach(destination => { %>
+            <option value="<%= destination.id %>"><%= destination.name %></option>
+          <% }) %>
         </select>
+        <label for="booking_date">Choose a Date:</label>
+        <input type="date" name="booking_date" id="booking_date" required>
         <button type="submit" class="btn">Book Now</button>
       </form>
     </section>

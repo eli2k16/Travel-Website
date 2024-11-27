@@ -207,7 +207,7 @@ app.post('/delete-destination/:id', (req, res) => {
   });
 });
 
-// Booking page
+// Route to show all bookings and allow booking new destinations
 app.get('/booking', (req, res) => {
   if (!req.session.user) {
     return res.redirect('/login');
@@ -218,20 +218,66 @@ app.get('/booking', (req, res) => {
       console.error('Error fetching destinations:', err);
       return res.status(500).send('Internal Server Error');
     }
-    res.render('booking', { destinations: results });
+
+    // Fetch user's bookings
+    const user_id = req.session.user.id;
+    db.query(
+      'SELECT b.id, d.name AS destination_name, b.booking_date FROM bookings b JOIN destinations d ON b.destination_id = d.id WHERE b.user_id = ?',
+      [user_id],
+      (err, bookings) => {
+        if (err) {
+          console.error('Error fetching bookings:', err);
+          return res.status(500).send('Internal Server Error');
+        }
+
+        // Log the 'bookings' data to the terminal to check its contents
+          console.log(booking);  // This will print the bookings data to the terminal
+
+        // Render booking page with user, destinations, and bookings data
+        res.render('booking', {
+          user: req.session.user, // Current user
+          destinations: results,  // List of destinations
+          bookings: bookings      // User's bookings
+        });
+      }
+    );
   });
 });
 
+// Route to handle new bookings
 app.post('/booking', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
   const { destination_id, booking_date } = req.body;
   const user_id = req.session.user.id;
 
-  db.query('INSERT INTO bookings (user_id, destination_id, booking_date) VALUES (?, ?, ?)', [user_id, destination_id, booking_date], (err) => {
+  // Insert new booking into the database
+  db.query('INSERT INTO bookings (user_id, destination_id, booking_date) VALUES (?, ?, ?)', [user_id, destination_id, booking_date], (err, result) => {
     if (err) {
-      console.error('Error during booking:', err);
+      console.error('Error creating new booking:', err);
       return res.status(500).send('Internal Server Error');
     }
-    res.redirect('/profile');
+    res.redirect('/booking');
+  });
+});
+
+// Route to handle canceling bookings
+app.post('/cancel-booking/:id', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  const booking_id = req.params.id;
+
+  // Delete booking from the database
+  db.query('DELETE FROM bookings WHERE id = ?', [booking_id], (err, result) => {
+    if (err) {
+      console.error('Error canceling booking:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.redirect('/booking');
   });
 });
 
