@@ -3,89 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Destinations - Travel Website</title>
+  <title>Manage Bookings</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body style="background-color: #addae6;">
+
   <!-- Header section -->
   <header>
-    <h1>Manage Destinations</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/nairobi">Nairobi</a>
-      <a href="/tokyo">Tokyo</a>
-      <a href="/interlaken">Interlaken</a>
-      <a href="/giza">Giza</a>
-      <a href="/porto">Porto</a>
-      <a href="/dubai">Dubai</a>
-      <a href="/masai_mara">Masai Mara</a>
-      <a href="/mauritius">Mauritius</a>
-      <a href="/booking">Your Bookings</a>
-      <a href="/profile">Profile</a>
-      <a href="/logout">Logout</a>
-    </nav>
+    <h1>Manage Your Bookings</h1>
   </header>
 
-  <!-- CRUD Section -->
   <main>
-    <section class="crud-section">
-      <h2>Destinations</h2>
+    <h2>Bookings</h2>
 
-      <!-- Add New Destination -->
-      <h3>Add a New Destination</h3>
-      <form action="/destinations/create" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="name">Destination Name:</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="image">Image URL:</label>
-          <input type="file" id="image" name="image" required>
-        </div>
-        <button type="submit" class="btn">Add Destination</button>
-      </form>
-
-      <hr>
-
-      <!-- View All Destinations -->
-      <h3>All Destinations</h3>
-      <table>
-        <thead>
+    <!-- Display the bookings -->
+    <table>
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Location</th>
+          <th>Booking Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(booking => { %>
           <tr>
-            <th>Destination</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Actions</th>
+            <!-- Booking details -->
+            <td><%= booking.customer_name %></td>
+            <td><%= booking.location %></td>
+            <td><%= booking.booking_date %></td>
+            <td>
+              <!-- Edit Booking -->
+              <form action="/edit-booking/<%= booking.id %>" method="POST" style="display:inline;">
+                <input type="hidden" name="id" value="<%= booking.id %>">
+                <input type="text" name="customer_name" value="<%= booking.customer_name %>" required>
+                <input type="text" name="location" value="<%= booking.location %>" required>
+                <input type="date" name="booking_date" value="<%= booking.booking_date %>" required>
+                <button type="submit">Save</button>
+              </form>
+
+              <!-- Delete Booking (cancel) -->
+              <form action="/delete-booking/<%= booking.id %>" method="POST" style="display:inline;">
+                <button type="submit">Cancel</button>
+              </form>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% destinations.forEach(function(destination) { %>
-            <tr>
-              <td><%= destination.name %></td>
-              <td><%= destination.description %></td>
-              <td><img src="/images/<%= destination.image_url %>" alt="<%= destination.name %>" style="width:100px; height:auto;"></td>
-              <td>
-                <!-- Edit Destination -->
-                <a href="/destinations/edit/<%= destination.id %>">Edit</a>
-                <!-- Delete Destination -->
-                <form action="/destinations/delete/<%= destination.id %>" method="POST" style="display:inline;">
-                  <button type="submit" class="btn-delete">Delete</button>
-                </form>
-              </td>
-            </tr>
-          <% }); %>
-        </tbody>
-      </table>
-    </section>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- Add a New Booking -->
+    <h3>Add a New Booking</h3>
+    <form action="/add-booking" method="POST">
+      <label for="customer_name">Customer Name:</label>
+      <input type="text" name="customer_name" required>
+      <label for="location">Location:</label>
+      <input type="text" name="location" required>
+      <label for="booking_date">Booking Date:</label>
+      <input type="date" name="booking_date" required>
+      <button type="submit">Add Booking</button>
+    </form>
   </main>
 
-  <!-- Footer section -->
-  <footer>
-    <p>&copy; 2024 Travel Website | All rights reserved</p>
-  </footer>
 </body>
 </html>

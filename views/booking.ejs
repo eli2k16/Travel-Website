@@ -54,7 +54,7 @@
             <tr>
               <th>Destination</th>
               <th>Booking Date</th>
-              <th>Action</th>
+              <th>Edit Date</th>
             </tr>
           </thead>
           <tbody>
@@ -63,9 +63,16 @@
                 <td><%= booking.destination_name %></td>
                 <td><%= booking.booking_date.toLocaleString() %></td>
                 <td>
-                  <form action="/cancel-booking/<%= booking.id %>" method="POST">
-                    <button type="submit" class="btn">Cancel Booking</button>
-                  </form>
+                     <!-- Cancel Booking -->
+                    <form action="/cancel-booking/<%= booking.id %>" method="POST" style="display:inline;">
+                   <button type="submit">Cancel</button>
+                   </form>
+
+                          <!-- Inline Editable Date -->
+                               <span contenteditable="true" class="editable-date"><%= booking.booking_date.toISOString().slice(0, 10) %></span>
+                                <button class="save-date-btn" data-booking-id="<%= booking.id %>">Save</button>
+
+                    </form>
                 </td>
               </tr>
             <% }) %>

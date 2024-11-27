@@ -141,6 +141,11 @@ app.post('/signup', (req, res) => {
   });
 });
 
+  // Define a route for Destinations
+  app.get('/destinations', (req, res) => {
+    res.render('destinations'); // Render the destinations.ejs page
+});
+
 // Profile page (requires login)
 app.get('/profile', (req, res) => {
   if (!req.session.user) {
@@ -149,63 +154,64 @@ app.get('/profile', (req, res) => {
   res.render('profile', { user: req.session.user });
 });
 
-// CRUD operations for destinations
+// CRUD operations for bookings
 app.get('/crud', (req, res) => {
   if (!req.session.user) {
     return res.redirect('/login');
   }
 
-  db.query('SELECT * FROM destinations', (err, results) => {
+  db.query('SELECT * FROM bookings', (err, results) => {
     if (err) {
-      console.error('Error fetching destinations:', err);
+      console.error('Error fetching bookings:', err);
       return res.status(500).send('Internal Server Error');
     }
-    res.render('crud', { destinations: results });
+    res.render('crud', { bookings: results });
   });
 });
 
-app.post('/add-destination', (req, res) => {
-  const { title, description, image_url } = req.body;
+// Add a new booking
+app.post('/add-booking', (req, res) => {
+  const { customer_name, location, booking_date } = req.body;
 
-  db.query('INSERT INTO destinations (name, description, image_url) VALUES (?, ?, ?)', [title, description, image_url], (err) => {
+  db.query('INSERT INTO bookings (customer_name, location, booking_date) VALUES (?, ?, ?)', [customer_name, location, booking_date], (err) => {
     if (err) {
-      console.error('Error adding destination:', err);
+      console.error('Error adding booking:', err);
+      return res.status(500).send('Internal Server Error');
+    }
+    res.redirect('/crud');
+  });
+});
+
+// Edit an existing booking (directly from crud.ejs)
+app.post('/edit-booking/:id', (req, res) => {
+  const { id } = req.params;
+  const { customer_name, location, booking_date } = req.body;
+
+  db.query('UPDATE bookings SET customer_name = ?, location = ?, booking_date = ? WHERE id = ?', [customer_name, location, booking_date, id], (err) => {
+    if (err) {
+      console.error('Error updating booking:', err);
       return res.status(500).send('Internal Server Error');
     }
     res.redirect('/crud');
   });
 });
 
-// Handle updating a destination
-app.post('/update-destination/:id', (req, res) => {
-  const { id } = req.params;
-  const { title, description, image_url } = req.body;
-
-  db.query(
-    'UPDATE destinations SET name = ?, description = ?, image_url = ? WHERE id = ?',
-    [title, description, image_url, id],
-    (err) => {
-      if (err) {
-        console.error('Error updating destination:', err);
-        return res.status(500).send('Internal Server Error');
-      }
-      res.redirect('/crud');
-    }
-  );
-});
-
-// Handle deleting a destination
-app.post('/delete-destination/:id', (req, res) => {
+// Delete (cancel) a booking
+app.post('/delete-booking/:id', (req, res) => {
   const { id } = req.params;
 
-  db.query('DELETE FROM destinations WHERE id = ?', [id], (err) => {
+  db.query('DELETE FROM bookings WHERE id = ?', [id], (err) => {
     if (err) {
-      console.error('Error deleting destination:', err);
+      console.error('Error deleting booking:', err);
       return res.status(500).send('Internal Server Error');
     }
     res.redirect('/crud');
   });
 });
+
+
+
+
 
 // Route to show all bookings and allow booking new destinations
 app.get('/booking', (req, res) => {
@@ -229,9 +235,6 @@ app.get('/booking', (req, res) => {
           console.error('Error fetching bookings:', err);
           return res.status(500).send('Internal Server Error');
         }
-
-        // Log the 'bookings' data to the terminal to check its contents
-          console.log(booking);  // This will print the bookings data to the terminal
 
         // Render booking page with user, destinations, and bookings data
         res.render('booking', {

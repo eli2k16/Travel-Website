@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destinations</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background-color: #addae6;">
+
+  <!-- Header section -->
+  <header>
+    <h1>Explore Our Beautiful Destinations</h1>
+  </header>
+
+  <main>
+    <h2>Destinations</h2>
+
+    <!-- Display the destinations -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% destinations.forEach(destination => { %>
+          <tr>
+            <td><%= destination.name %></td>
+            <td><%= destination.description %></td>
+            <td><img src="<%= destination.image_url %>" alt="<%= destination.name %>" width="100"></td>
+            <td>
+              <!-- Edit Destination -->
+              <a href="/destinations/edit/<%= destination.id %>">Edit</a>
+
+              <!-- Soft Delete Destination (set deleted to 1) -->
+              <form action="/destinations/delete/<%= destination.id %>" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+              </form>
+
+              <!-- Restore Deleted Destination -->
+              <% if (destination.deleted === 1) { %>
+                <form action="/destinations/restore/<%= destination.id %>" method="POST" style="display:inline;">
+                  <button type="submit">Restore</button>
+                </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- Add a New Destination -->
+    <h3>Add a New Destination</h3>
+    <form action="/destinations/create" method="POST">
+      <label for="name">Destination Name:</label>
+      <input type="text" name="name" required>
+      <label for="description">Description:</label>
+      <textarea name="description" required></textarea>
+      <label for="image_url">Image URL:</label>
+      <input type="text" name="image_url" required>
+      <button type="submit">Add Destination</button>
+    </form>
+  </main>
+
+</body>
+</html>
